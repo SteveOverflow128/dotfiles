@@ -7,6 +7,8 @@ plugins=(
   git-extras
   gitignore
   wd
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 # Adding custom oh_my_zsh plugins

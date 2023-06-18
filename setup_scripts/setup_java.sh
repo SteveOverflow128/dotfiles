@@ -9,19 +9,23 @@ echo ""
 echo ""
 
 # Check if openjdk17 is installed
-if [ ! -f "/usr/lib/jvm/java-17-openjdk-amd64/bin/java" ]; then
+if [ ! -f "/usr/lib/jvm/java-17-openjdk-17.0.6.0.10-3.el9.x86_64/bin/java" ]; then
   step "OpenJDK 17 is not installed. Installing now..."
-  sudo apt -y install openjdk-17-jdk
+  sudo dnf -y install java-17-openjdk
 else
   stepComplete "OpenJDK 17 is already installed."
 fi
 
-if snap list | grep -q "eclipse"; then
-  step "Eclipse is already installed. Updating..."
-  sudo snap refresh eclipse
+if [ -f "/opt/eclipse/eclipse" ]; then
+  stepComplete "Eclipse is already installed."
 else
   step "Installing eclipse..."
-  sudo snap install --classic eclipse
+  pushd /tmp
+  wget https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2023-06/R/eclipse-java-2023-06-R-linux-gtk-x86_64.tar.gz&mirror_id=1281
+  tar xvfz eclipse-java-2023-06-R-linux-gtk-x86_64.tar.gz
+  sudo mv eclipse /opt/
+  popd
+  stepComplete "Eclipse installed."
 fi
 
 if snap list | grep -q "postman"; then

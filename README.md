@@ -1,10 +1,10 @@
 # dotfiles
 
-Ubuntu setup scripts for development in a VM. Currently supporting version 22.04
+CentOS setup scripts for development in a VM. Currently supporting version 9
 
 ## Features
 
-- [Zsh](https://learnubuntu.com/install-setup-zsh) - Default command line shell
+- [Zsh](https://mpolinowski.github.io/docs/DevOps/Linux/2019-09-22--zsh-on-centos8/2019-09-22/) - Default command line shell
 
 ## Setup
 

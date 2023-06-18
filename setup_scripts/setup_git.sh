@@ -11,7 +11,7 @@ echo ""
 # Check if git is installed
 if ! command -v git >/dev/null 2>&1; then
   step "Git is not installed. Installing now..."
-  sudo apt install -y git 
+  sudo dnf install -y git 
 else
   stepComplete "Git is already installed."
 fi
@@ -47,11 +47,15 @@ cat <<EXCL >> ~/.gitignore_global
 *~
 *.swp
 *.swo
+
+# Eclipse files #
+#################
+.project
 EXCL
 
 if ! command -v xclip >/dev/null 2>&1; then
   step "xclip is not installed. Installing now..."
-  sudo apt -y install xclip
+  sudo dnf -y install xclip
 else
   stepComplete "xclip is already installed"
 fi

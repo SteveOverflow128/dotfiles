@@ -39,17 +39,23 @@ echo ""
   infoMessage " "
 echo ""
 
-sudo apt -y update
-sudo apt -y upgrade
-sudo snap refresh
+sudo dnf check-update
+sudo dnf -y update
 
-if ! command -v curl >/dev/null 2>&1; then
-  step "curl is not installed. Installing now..."
-  sudo snap install curl
-  stepComplete "Curl installed"
+if command -v snap >/dev/null 2>&1; then
+    stepComplete "Snap is installed."
 else
-  stepComplete "Curl is already installed."
+    step "Snap is not installed. Installing"
+    sudo dnf -y install snapd
+    # Enable on boot and start local snap server
+    sudo systemctl start snapd
+    sudo systemctl enable snapd
+    # Enable classic snap support
+    sudo ln -s /var/lib/snapd/snap /snap
+    stepComplete "Snap installed."
 fi
+
+source setup_scripts/setup_git.sh
 
 echo ""
   infoMessage " "
@@ -64,9 +70,10 @@ echo
 
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  step "Installing VirtualBox Guest Additions..."
-  source setup_scripts/install_VBox_GA.sh
-  stepComplete "VirtualBox Guest Additions installed"
+#  step "Installing VirtualBox Guest Additions..."
+#  source setup_scripts/install_VBox_GA.sh
+#  stepComplete "VirtualBox Guest Additions installed"
+  echo
 else
   stepComplete "Skipping VirtualBox Guest Additions installation..."
 fi
@@ -80,7 +87,7 @@ echo ""
 
 source setup_scripts/setup_zsh.sh
 
-source setup_scripts/setup_git.sh
+
 
 question "Do you want to install java and related devtools?"
 read -n 1 -r
