@@ -25,6 +25,18 @@ else
   tar xvfz eclipse-java-2023-06-R-linux-gtk-x86_64.tar.gz
   sudo mv eclipse /opt/
   popd
+
+ # Destop shortcut
+sudo echo "[Desktop Entry]
+Type=Application
+Name=Eclipse
+Icon=/opt/eclipse/icon.xpm
+Exec=/opt/eclipse/eclipse
+Terminal=false
+NoDisplay=false
+Categories=Development;IDE;" > /usr/share/applications/eclipse.desktop
+sudo chmod +x /usr/share/applications/eclipse.desktop
+
   stepComplete "Eclipse installed."
 fi
 
